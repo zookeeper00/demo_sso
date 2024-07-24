@@ -1,0 +1,17 @@
+.logoutButton {
+  color: azure;
+  background-color: crimson;
+  padding: 5px 10px;
+  margin: 5px;
+  height: 30px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+}
+
+.logoutButton:hover {
+  transform: scale(1.1);
+  background-color: rgb(124, 16, 37);
+  font-weight: bold;
+  color: white;
+}
