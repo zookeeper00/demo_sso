@@ -1,0 +1,35 @@
+steps:
+  # Build the Docker image
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "asia-south1-docker.pkg.dev/my-money-428813/my-ai-app-test/test-mayank",
+        ".",
+      ]
+
+  # Push the Docker image to Google Artifact Registry
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "push",
+        "asia-south1-docker.pkg.dev/my-money-428813/my-ai-app-test/test-mayank",
+      ]
+
+  # Deploy the Docker image to Google Cloud Run
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: "bash"
+    args:
+      - "-c"
+      - |
+        gcloud run deploy test-mayank \
+          --image asia-south1-docker.pkg.dev/my-money-428813/my-ai-app-test/test-mayank \
+          --platform managed \
+          --region asia-south1 \
+          --allow-unauthenticated \
+
+logsBucket: "app-demo-ai"
+
+images:
+  - "asia-south1-docker.pkg.dev/my-money-428813/my-ai-app-test/test-mayank"
