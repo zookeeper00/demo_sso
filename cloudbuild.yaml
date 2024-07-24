@@ -1,11 +1,11 @@
 steps:
   # Build the Docker image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'us-central1-docker.pkg.dev/my-money-428813/mayank-test', '.']
+    args: ['build', '-t', 'us-central1-docker.pkg.dev/my-money-428813/mayank-test/app-test', '.']
  
   # Push the Docker image to Google Artifact Registry
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/my-money-428813/mayank-test']
+    args: ['push', 'us-central1-docker.pkg.dev/my-money-428813/mayank-test/app-test']
  
   # Deploy the Docker image to Google Cloud Run
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -14,7 +14,7 @@ steps:
       - '-c'
       - |
         gcloud run deploy test-mayank \
-          --image us-central1-docker.pkg.dev/my-money-428813/mayank-test \
+          --image us-central1-docker.pkg.dev/my-money-428813/mayank-test/app-test \
           --platform managed \
           --region asia-south1 \
           --allow-unauthenticated \
@@ -23,4 +23,4 @@ steps:
 logsBucket: 'app-demo-ai'
  
 images:
-  - 'us-central1-docker.pkg.dev/my-money-428813/mayank-test'
+  - 'us-central1-docker.pkg.dev/my-money-428813/mayank-test/app-test'
